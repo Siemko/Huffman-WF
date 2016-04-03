@@ -61,6 +61,10 @@ namespace Huffman_WF
 
             string decoded = HTree.Decode(encoded2);
             textBox1.Text = decoded;
+
+            //HTree.ToFile(@"F:\Projects\Huffman-WF\output.bin");
+            HTree._freqs.ToFile(Environment.CurrentDirectory + "/dict.txt");
+            File.AppendAllText(Environment.CurrentDirectory  + "/output.bin", output);
         }
     }
 }

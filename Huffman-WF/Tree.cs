@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,6 +120,23 @@ namespace Huffman_WF
             }
 
             return decodedString;
+        }
+
+        public void ToFile(string file)
+        {
+            using (FileStream fs = File.OpenWrite(file))
+            using (BinaryWriter writer = new BinaryWriter(fs))
+            {
+                writer.Write(_freqs.Freqs.Count);
+                // Write pairs.
+                foreach (var pair in _freqs.Freqs)
+                {
+                    writer.Write(pair.Key);
+                    writer.Write(pair.Value);
+                }
+                writer.Write(BitCountForTree);
+
+            }
         }
     }
 }

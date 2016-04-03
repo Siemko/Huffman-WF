@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,21 @@ namespace Huffman_WF
                 else
                 {
                     Freqs[c] += 1;
+                }
+            }
+        }
+
+        public void ToFile(string file)
+        {
+            var items = from pair in Freqs orderby pair.Value descending select pair;
+            using (FileStream fs = File.OpenWrite(file))
+            using (var writer = new StreamWriter(fs))
+            {
+                writer.WriteLine(Freqs.Count);
+                // Write pairs.
+                foreach (var pair in items)
+                {
+                    writer.WriteLine(pair.Key + ":[" + pair.Value + "]");
                 }
             }
         }
